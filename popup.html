@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logic App Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Logic App Manager</h1>
+      <p class="subtitle">Backup & Restore Tool</p>
+    </div>
+
+    <div class="status" id="status">
+      <span class="status-indicator" id="statusIndicator"></span>
+      <span id="statusText">Detecting Azure Portal page...</span>
+    </div>
+
+    <div class="info-section" id="infoSection" style="display: none;">
+      <div class="info-item">
+        <span class="label">Logic App:</span>
+        <span class="value" id="logicAppName">-</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Resource Group:</span>
+        <span class="value" id="resourceGroup">-</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="backupButton" class="btn btn-primary" disabled>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 12l-4-4h2.5V4h3v4H12l-4 4z"/>
+          <path d="M14 13v1H2v-1h12z"/>
+        </svg>
+        Backup to File
+      </button>
+
+      <button id="restoreButton" class="btn btn-secondary" disabled>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 4l4 4H9.5v4h-3V8H4l4-4z"/>
+          <path d="M2 3v-1h12v1H2z"/>
+        </svg>
+        Restore from File
+      </button>
+
+      <input type="file" id="uploadFile" accept=".json" style="display: none;" />
+    </div>
+
+    <div class="footer">
+      <div class="help-text">
+        Make sure you're on the Logic App designer or code view page in Azure Portal.
+      </div>
+    </div>
+
+    <div class="notification" id="notification" style="display: none;">
+      <span id="notificationText"></span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
