@@ -11,17 +11,29 @@ A Chrome extension to backup and restore Azure Logic Apps directly from the Azur
 - ✅ **Restore** Logic Apps from JSON files
 - ✅ **Direct API Integration** - Uses Azure Management REST API
 - ✅ **Auto-Authentication** - Extracts token from Azure Portal session
+- ✅ **Dynamic Icon** - Blue icon on Azure Portal, gray icon elsewhere
 - ✅ **Simple UI** - Clean, GitHub-inspired interface
 - ✅ **No Data Collection** - All operations are local
 
 ## Screenshot
 
-![Extension Screenshot](https://via.placeholder.com/360x400/f6f8fa/24292f?text=Extension+UI)
-*Replace with actual screenshot*
+![Extension Screenshot](screenshot-logic-app-manager.png)
+
 
 ## Installation
 
-### Step 1: Download the Extension
+### Option 1: Install from Release (Recommended)
+
+1. Go to the [Releases page](https://github.com/albertsikkema/logic-app-manager/releases)
+2. Download the latest `logic-app-manager-v*.*.*.zip` file
+3. Extract the ZIP file to a folder on your computer
+4. Open Chrome and navigate to `chrome://extensions/`
+5. Enable **Developer mode** (toggle in top-right corner)
+6. Click **"Load unpacked"**
+7. Select the extracted extension folder
+8. The extension icon should appear in your toolbar
+
+### Option 2: Install from Source
 
 Clone this repository:
 ```bash
@@ -29,31 +41,7 @@ git clone https://github.com/albertsikkema/logic-app-manager.git
 cd logic-app-manager
 ```
 
-Or [download as ZIP](https://github.com/albertsikkema/logic-app-manager/archive/refs/heads/main.zip) and extract.
-
-### Step 2: Generate Icons
-
-Choose one method:
-
-**Option A: Browser-based (No installation required)**
-1. Open `icons/generate-icons.html` in your browser
-2. Click "Generate All Icons"
-3. Save the 3 PNG files in the `icons/` folder
-
-**Option B: Python script**
-```bash
-cd icons
-pip install pillow
-python3 generate-icons.py
-```
-
-### Step 3: Load in Chrome
-
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Enable **Developer mode** (toggle in top-right corner)
-3. Click **"Load unpacked"**
-4. Select the extension folder
-5. The extension icon should appear in your toolbar
+Then follow steps 4-8 from Option 1 above.
 
 ## Usage
 
@@ -113,18 +101,25 @@ python3 generate-icons.py
 
 ```
 logic-app-manager/
-├── manifest.json          # Extension configuration
-├── popup.html            # Extension popup UI
-├── popup.js              # UI logic and API calls
-├── content.js            # Metadata and token extraction
-├── styles.css            # GitHub-inspired styling
-├── icons/                # Extension icons
-│   ├── icon16.png
-│   ├── icon48.png
-│   ├── icon128.png
-│   ├── generate-icons.html
-│   └── generate-icons.py
-└── README.md             # This file
+├── manifest.json              # Extension configuration
+├── background.js              # Service worker for icon state management
+├── popup.html                 # Extension popup UI
+├── popup.js                   # UI logic and API calls
+├── content.js                 # Metadata and token extraction
+├── styles.css                 # GitHub-inspired styling
+├── icons/                     # Extension icons
+│   ├── icon.svg               # Active icon source (Azure blue)
+│   ├── icon-inactive.svg      # Inactive icon source (grayscale)
+│   ├── icon16.png             # 16x16 active icon
+│   ├── icon48.png             # 48x48 active icon
+│   ├── icon128.png            # 128x128 active icon
+│   ├── icon16-inactive.png    # 16x16 inactive icon
+│   ├── icon48-inactive.png    # 48x48 inactive icon
+│   └── icon128-inactive.png   # 128x128 inactive icon
+├── LICENSE                    # MIT License
+├── PRIVACY_POLICY.md          # Privacy policy
+├── README.md                  # This file
+└── screenshot-logic-app-manager.png
 ```
 
 ## Security & Privacy
@@ -135,6 +130,8 @@ logic-app-manager/
 - ✅ Auth tokens are only used for Azure Management API calls
 - ✅ No analytics or tracking
 - ✅ Open source - audit the code yourself
+
+📄 Read our full [Privacy Policy](PRIVACY_POLICY.md)
 
 ## Contributing
 
@@ -156,9 +153,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 # Clone the repository
 git clone https://github.com/albertsikkema/logic-app-manager.git
 cd logic-app-manager
-
-# Generate icons
-cd icons && python3 generate-icons.py && cd ..
 
 # Load in Chrome for development
 # 1. Go to chrome://extensions/
@@ -194,4 +188,8 @@ For issues or questions:
 
 ---
 
+## Legal Notice
+
 **Disclaimer:** This extension is not officially affiliated with or endorsed by Microsoft or Azure.
+
+**Limitation of Liability:** THE AUTHOR AND CONTRIBUTORS ARE NOT RESPONSIBLE FOR ANY DAMAGE, DATA LOSS, PRODUCTION OUTAGES, OR THE END OF THE WORLD CAUSED BY USING THIS EXTENSION. YOU USE THIS SOFTWARE ENTIRELY AT YOUR OWN RISK. By installing and using this extension, you accept full responsibility for all consequences.

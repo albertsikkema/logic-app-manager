@@ -11,6 +11,8 @@ const logicAppName = document.getElementById('logicAppName');
 const resourceGroup = document.getElementById('resourceGroup');
 const notification = document.getElementById('notification');
 const notificationText = document.getElementById('notificationText');
+const actionsSection = document.querySelector('.actions');
+const footerSection = document.querySelector('.footer');
 
 // State
 let metadata = null;
@@ -26,6 +28,8 @@ async function initialize() {
 
     if (!tab.url || !tab.url.includes('portal.azure.com')) {
       updateStatus('error', 'Not on Azure Portal');
+      actionsSection.style.display = 'none';
+      footerSection.style.display = 'none';
       return;
     }
 
@@ -33,6 +37,8 @@ async function initialize() {
     const metadataResponse = await chrome.tabs.sendMessage(tab.id, { action: 'getMetadata' });
     if (!metadataResponse?.success || !metadataResponse?.metadata) {
       updateStatus('error', 'Not on a Logic App page');
+      actionsSection.style.display = 'none';
+      footerSection.style.display = 'none';
       return;
     }
 
@@ -40,6 +46,8 @@ async function initialize() {
     logicAppName.textContent = metadata.workflowName;
     resourceGroup.textContent = metadata.resourceGroup;
     infoSection.style.display = 'block';
+    actionsSection.style.display = 'flex';
+    footerSection.style.display = 'block';
 
     // Get token
     const tokenResponse = await chrome.tabs.sendMessage(tab.id, { action: 'getToken' });
