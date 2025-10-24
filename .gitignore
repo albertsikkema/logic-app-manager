@@ -40,3 +40,6 @@ env/
 *.tmp
 *.temp
 .cache/
+.claude/
+claude-helpers/
+thoughts/
