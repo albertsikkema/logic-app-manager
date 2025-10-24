@@ -17,7 +17,7 @@ A Chrome extension to backup and restore Azure Logic Apps directly from the Azur
 
 ## Screenshot
 
-![Extension Screenshot](screenshot-logic-app-manager.png)
+![Extension Screenshot](screenshot.png)
 
 
 ## Installation
@@ -119,7 +119,7 @@ logic-app-manager/
 ├── LICENSE                    # MIT License
 ├── PRIVACY_POLICY.md          # Privacy policy
 ├── README.md                  # This file
-└── screenshot-logic-app-manager.png
+└── screenshot.png             # Extension screenshot
 ```
 
 ## Security & Privacy

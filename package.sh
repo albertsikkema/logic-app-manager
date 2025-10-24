@@ -27,13 +27,15 @@ zip -r "$OUTPUT" \
     content.js \
     popup.html \
     popup.js \
+    options.html \
+    options.js \
     styles.css \
     icons/*.png \
     icons/*.svg \
     LICENSE \
     PRIVACY_POLICY.md \
     README.md \
-    screenshot-logic-app-manager.png \
+    screenshot.png \
     -x "*.DS_Store" \
     -x "__MACOSX/*"
 
