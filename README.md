@@ -169,7 +169,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## Author
 
-Created by [Albert Sikkema](https://github.com/albertsikkema)
+Created by [Albert Sikkema](https://albertsikkema.com)
 
 ## Acknowledgments
 
