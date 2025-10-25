@@ -162,6 +162,23 @@ This extension:
 - ✅ Is transparent about all operations (open source)
 - ✅ GitHub integration is optional and user-controlled
 
+## Chrome Web Store User Data Policy Compliance
+
+The use of information received from Google APIs will adhere to the [Chrome Web Store User Data Policy](https://developer.chrome.com/docs/webstore/program-policies/user-data-faq), including the Limited Use requirements.
+
+Logic App Manager's use and transfer of information received from Google APIs to any other app will adhere to the Chrome Web Store User Data Policy, including the Limited Use requirements.
+
+### Limited Use Compliance
+
+This extension complies with Chrome Web Store Limited Use requirements:
+
+- ✅ **Single Purpose**: Data is used solely for backup and restore of Azure Logic Apps
+- ✅ **No Monetization**: User data is not used for advertising, ad targeting, or monetization
+- ✅ **No Web Tracking**: Does not collect web browsing activity
+- ✅ **Secure Transmission**: All data transmission uses HTTPS
+- ✅ **No Third-Party Sharing**: Data is not sold or shared with third parties (except user-initiated GitHub backup)
+- ✅ **Transparent Usage**: All data usage is clearly disclosed in this privacy policy
+
 ## GitHub Integration Summary (v1.1.0+)
 
 For clarity, here's a complete summary of the GitHub integration feature:
