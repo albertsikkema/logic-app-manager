@@ -4,6 +4,8 @@ A Chrome extension to backup and restore Azure Logic Apps directly from the Azur
 
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![PRO Version](https://img.shields.io/badge/PRO-Coming%20Soon-orange)
 
 ## Features
 
@@ -217,23 +219,44 @@ logic-app-manager/
 
 📄 Read our full [Privacy Policy](PRIVACY_POLICY.md)
 
+## Roadmap & PRO Version
+
+### Current Version (Free & Open Source)
+The current version provides core backup and restore functionality with GitHub integration for version control.
+
+### PRO Version (Coming Soon) 💼
+
+Advanced features for enterprise teams and professional workflows:
+
+- 🚀 **Advanced Release Management** - Automated release pipelines and deployment workflows
+- 🌍 **Multiple Environments** - Manage Dev, Test, Accept, and Production environments
+- 🔍 **Enhanced Diff & Merge Views** - Visual comparison and intelligent merging of Logic Apps
+- 👥 **Team Collaboration** - Multi-user workflows, approval processes, and role-based access
+- 📊 **Advanced Analytics** - Deployment tracking, change history, and audit logs
+- 🔄 **Automated Sync** - Scheduled backups and environment synchronization
+- 🏢 **Enterprise Support** - Priority support and custom integration options
+
+**Interested in the PRO version?**
+📧 Contact [Albert Sikkema](https://albertsikkema.com) for details, pricing, and licensing information.
+
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions to the open-source version are welcome! Please feel free to submit a Pull Request.
 
 ### Ideas for Contributions
 
+**Open Source Features:**
 - [ ] Support for Azure Logic Apps Standard (not just Consumption)
 - [ ] Batch backup multiple Logic Apps
 - [ ] Export to ARM templates
 - [ ] Backup connections and parameters separately
-- [ ] Diff viewer to compare backups before restore
-- [ ] Compare two Logic Apps side-by-side
-- [ ] Auto-backup on schedule with configurable intervals
 - [ ] Branch selection for GitHub operations (currently uses default branch)
 - [ ] Dark mode
 - [ ] Search/filter commit history
 - [ ] Backup tagging and notes
+- [ ] Keyboard shortcuts
+
+**Note:** Advanced features like release management, multi-environment support, enhanced diff/merge views, and team collaboration will be available in the PRO version.
 
 ## Development
 
