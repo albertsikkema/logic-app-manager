@@ -7,13 +7,22 @@ A Chrome extension to backup and restore Azure Logic Apps directly from the Azur
 
 ## Features
 
-- ✅ **Backup** Logic Apps to JSON files with timestamped filenames
-- ✅ **Restore** Logic Apps from JSON files
-- ✅ **Direct API Integration** - Uses Azure Management REST API
+### Core Functionality
+- ✅ **Backup to File** - Save Logic Apps to JSON files with timestamped filenames
+- ✅ **Restore from File** - Restore Logic Apps from JSON files
+- ✅ **Backup to GitHub** - Push Logic App definitions directly to GitHub repositories
+- ✅ **Restore from GitHub** - Browse commit history and restore from specific versions
+- ✅ **Direct API Integration** - Uses Azure Management REST API and GitHub REST API
 - ✅ **Auto-Authentication** - Extracts token from Azure Portal session
 - ✅ **Dynamic Icon** - Blue icon on Azure Portal, gray icon elsewhere
 - ✅ **Simple UI** - Clean, GitHub-inspired interface
 - ✅ **No Data Collection** - All operations are local
+
+### GitHub Integration (v1.1.0+)
+- 📁 **Organized Storage** - Files saved as `apps/{workflowName}/{YYYY-MM-DD}-workflow.json`
+- 📜 **Version History** - Browse and restore from commit history
+- 🔒 **Secure Tokens** - GitHub Personal Access Tokens stored in `chrome.storage.session`
+- 🔄 **Dual-Mode Operation** - GitHub and file-based options work independently
 
 ## Screenshot
 
@@ -43,10 +52,39 @@ cd logic-app-manager
 
 Then follow steps 4-8 from Option 1 above.
 
+## GitHub Setup (Optional)
+
+To enable GitHub integration for centralized backup and version control:
+
+1. Click the extension icon and select **"Options"** (or right-click the icon → Options)
+2. Enter your GitHub repository in the format: `owner/repo` (e.g., `myusername/logic-app-backups`)
+3. Generate a GitHub Personal Access Token:
+   - Go to [GitHub Settings → Developer settings → Personal access tokens → Tokens (classic)](https://github.com/settings/tokens)
+   - Click **"Generate new token (classic)"**
+   - Give it a name (e.g., "Logic App Manager")
+   - Select the **`repo`** scope (required for private repositories)
+   - Click **"Generate token"** and copy it
+4. Paste the token in the extension options
+5. Click **"Save Settings"**
+6. The connection will be tested automatically
+
+Once configured, you'll see **"Backup to GitHub"** and **"Restore from GitHub"** buttons in the popup.
+
+**Note:** Tokens are stored in `chrome.storage.session` and cleared when you close your browser.
+
 ## Usage
 
 ### Backup a Logic App
 
+#### Option A: Backup to GitHub (Requires setup)
+1. Navigate to your Logic App in the [Azure Portal](https://portal.azure.com)
+2. Make sure you're on the Logic App designer or code view page
+3. Click the extension icon in your Chrome toolbar
+4. Click **"Backup to GitHub"**
+5. Enter a commit message (optional)
+6. The workflow will be saved to: `apps/{workflowName}/{YYYY-MM-DD}-workflow.json`
+
+#### Option B: Backup to File
 1. Navigate to your Logic App in the [Azure Portal](https://portal.azure.com)
 2. Make sure you're on the Logic App designer or code view page
 3. Click the extension icon in your Chrome toolbar
@@ -56,6 +94,16 @@ Then follow steps 4-8 from Option 1 above.
 
 ### Restore a Logic App
 
+#### Option A: Restore from GitHub (Requires setup)
+1. Navigate to the Logic App you want to restore
+2. Click the extension icon
+3. Click **"Restore from GitHub"**
+4. Browse the commit history and select a version
+5. Click **"Restore"** to confirm
+6. The Logic App will be updated immediately
+7. Refresh the Azure Portal page to see the changes
+
+#### Option B: Restore from File
 1. Navigate to the Logic App you want to restore
 2. Click the extension icon
 3. Click **"Restore from File"**
@@ -65,21 +113,37 @@ Then follow steps 4-8 from Option 1 above.
 
 ## How It Works
 
+### Azure Integration
 1. **Metadata Extraction**: Reads Logic App details from the Azure Portal URL
 2. **Authentication**: Extracts the Azure Management API token from browser sessionStorage (MSAL token)
 3. **Backup**: Makes a GET request to `https://management.azure.com/.../workflows/{name}`
 4. **Restore**: Makes a PUT request to update the Logic App definition
+
+### GitHub Integration (Optional)
+1. **Configuration**: Stores GitHub PAT and repository in `chrome.storage.session`
+2. **Backup**: Creates/updates files at `apps/{workflowName}/{YYYY-MM-DD}-workflow.json` with commit messages
+3. **Restore**: Fetches commit history, allows version selection, retrieves workflow JSON from specific commit
+4. **Security**: All API calls made directly from browser, tokens never logged or transmitted elsewhere
 
 ## Requirements
 
 - Chrome 88+ (Manifest V3 support)
 - Active Azure Portal session
 - Contributor or Owner permissions on the Logic App
+- (Optional) GitHub account with Personal Access Token for GitHub integration
 
 ## API Endpoints Used
 
+### Azure Management API
 - **GET** (Backup): `/subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Logic/workflows/{name}?api-version=2016-10-01&$expand=connections.json,parameters.json`
 - **PUT** (Restore): `/subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.Logic/workflows/{name}?api-version=2016-10-01`
+
+### GitHub REST API (v1.1.0+)
+- **GET** `/repos/{owner}/{repo}` - Validate repository access
+- **GET** `/repos/{owner}/{repo}/contents/{path}` - Get file SHA for updates
+- **PUT** `/repos/{owner}/{repo}/contents/{path}` - Create/update workflow files
+- **GET** `/repos/{owner}/{repo}/commits?path={path}` - List commit history
+- **GET** `/repos/{owner}/{repo}/git/trees/{sha}` - Find files in specific commit
 
 ## Troubleshooting
 
@@ -97,6 +161,23 @@ Then follow steps 4-8 from Option 1 above.
 - Your session token has expired
 - Refresh the Azure Portal page to get a new token
 
+### GitHub options not showing
+- Make sure you've configured GitHub in the Options page
+- Check that your token has the `repo` scope
+- Verify the repository format is `owner/repo`
+
+### GitHub backup/restore fails
+- Verify your GitHub token hasn't expired
+- Check that you have write access to the repository
+- Ensure the repository exists and is accessible
+- Check your internet connection
+- Look at browser console (F12) for detailed error messages
+
+### "Failed to get file SHA" error
+- This is normal for the first backup of a Logic App
+- The extension creates the file automatically
+- If it persists, check repository permissions
+
 ## Project Structure
 
 ```
@@ -104,7 +185,9 @@ logic-app-manager/
 ├── manifest.json              # Extension configuration
 ├── background.js              # Service worker for icon state management
 ├── popup.html                 # Extension popup UI
-├── popup.js                   # UI logic and API calls
+├── popup.js                   # UI logic, Azure & GitHub API calls
+├── options.html               # GitHub configuration page
+├── options.js                 # GitHub settings management
 ├── content.js                 # Metadata and token extraction
 ├── styles.css                 # GitHub-inspired styling
 ├── icons/                     # Extension icons
@@ -126,8 +209,9 @@ logic-app-manager/
 
 - ✅ All operations are performed locally in your browser
 - ✅ Uses your existing Azure Portal authentication
-- ✅ No data is sent to external servers
-- ✅ Auth tokens are only used for Azure Management API calls
+- ✅ GitHub tokens stored securely in `chrome.storage.session` (cleared on browser close)
+- ✅ No data sent to external servers (except Azure/GitHub APIs when you use those features)
+- ✅ Tokens are only used for authorized API calls
 - ✅ No analytics or tracking
 - ✅ Open source - audit the code yourself
 
@@ -143,9 +227,13 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - [ ] Batch backup multiple Logic Apps
 - [ ] Export to ARM templates
 - [ ] Backup connections and parameters separately
-- [ ] Diff viewer to compare backups
-- [ ] Auto-backup on schedule
+- [ ] Diff viewer to compare backups before restore
+- [ ] Compare two Logic Apps side-by-side
+- [ ] Auto-backup on schedule with configurable intervals
+- [ ] Branch selection for GitHub operations (currently uses default branch)
 - [ ] Dark mode
+- [ ] Search/filter commit history
+- [ ] Backup tagging and notes
 
 ## Development
 
