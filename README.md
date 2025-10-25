@@ -234,6 +234,9 @@ Advanced features for enterprise teams and professional workflows:
 - 👥 **Team Collaboration** - Multi-user workflows, approval processes, and role-based access
 - 📊 **Advanced Analytics** - Deployment tracking, change history, and audit logs
 - 🔄 **Automated Sync** - Scheduled backups and environment synchronization
+- 📝 **Template Generation** - Export to ARM templates, Terraform, Bicep, and other IaC formats
+- ⚡ **Azure Deployment Integration** - Direct deployment via Terraform, Azure CLI, PowerShell, and Azure DevOps
+- 🔧 **Infrastructure as Code** - Full IaC workflow support with parameterization and environment variables
 - 🏢 **Enterprise Support** - Priority support and custom integration options
 
 **Interested in the PRO version?**
@@ -248,15 +251,15 @@ Contributions to the open-source version are welcome! Please feel free to submit
 **Open Source Features:**
 - [ ] Support for Azure Logic Apps Standard (not just Consumption)
 - [ ] Batch backup multiple Logic Apps
-- [ ] Export to ARM templates
 - [ ] Backup connections and parameters separately
 - [ ] Branch selection for GitHub operations (currently uses default branch)
 - [ ] Dark mode
 - [ ] Search/filter commit history
 - [ ] Backup tagging and notes
 - [ ] Keyboard shortcuts
+- [ ] Workflow validation before restore
 
-**Note:** Advanced features like release management, multi-environment support, enhanced diff/merge views, and team collaboration will be available in the PRO version.
+**Note:** Advanced features like release management, multi-environment support, enhanced diff/merge views, team collaboration, template generation (ARM/Terraform/Bicep), and Azure deployment integrations will be available in the PRO version.
 
 ## Development
 
