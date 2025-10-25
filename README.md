@@ -295,6 +295,12 @@ Created by [Albert Sikkema](https://albertsikkema.com)
 
 If you find this extension helpful, please ⭐ star this repository!
 
+**Using it personally?** Have fun! 🎉
+
+**Getting paid to use it professionally?** Please consider supporting me:
+
+<a href="https://www.buymeacoffee.com/albertsikkema" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 For issues or questions:
 1. Check the [Troubleshooting](#troubleshooting) section
 2. Search [existing issues](https://github.com/albertsikkema/logic-app-manager/issues)
