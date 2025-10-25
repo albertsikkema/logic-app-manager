@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Logic App Manager",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Backup and restore Azure Logic Apps using Azure Management API with GitHub integration",
   "permissions": [
     "activeTab",
-    "scripting",
     "downloads",
     "tabs",
     "storage"
